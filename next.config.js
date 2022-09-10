@@ -9,6 +9,6 @@
 module.exports = {
   images: {
     dangerouslyAllowSVG: true,
-    domains: ['rb.gy'],
+    domains: ['rb.gy', 'lh3.googleusercontent.com'],
   },
 }

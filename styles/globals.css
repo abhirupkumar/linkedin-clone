@@ -4,8 +4,8 @@
 
 @layer base {
     body {
-        @apply bg-gray-100;
-        overflow-x: hidden;
+        @apply bg-white;
+        overflow: hidden;
     }
 
     @media (min-width: 768px) {
@@ -25,5 +25,21 @@
 
     .intent:hover {
         @apply shadow-xl;
+    }
+
+    .sidebarButton {
+        @apply border-gray-600 py-3 px-4 cursor-pointer opacity-80;
+    }
+
+    .sidebarButton:hover {
+        @apply opacity-100;
+    }
+
+    .sidebarLink {
+        @apply text-[13px] font-medium text-blue-500 cursor-pointer px-2.5;
+    }
+
+    .sidebarLink:hover {
+        @apply underline;
     }
 }
