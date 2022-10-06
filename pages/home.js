@@ -12,6 +12,8 @@ import { useTheme } from '@emotion/react';
 
 const Home = ({ providers }) => {
 
+    console.log(providers)
+
     return (
         <div className='space-y-10 relative bg-white dark:bg-white'>
             <Head>
