@@ -18,7 +18,7 @@ const Input = () => {
     return (
         <div className='bg-white dark:bg-[#1D2226] rounded-lg p-3 space-y-3 border border-gray-300 dark:border-none'>
             <div className='flex items-center space-x-2'>
-                <Avatar src={session?.user?.image} className="!h-10 !w-10 !cursor-pointer" />
+                {session?.user?.image && <Avatar src={`${session?.user?.image}`} className="!h-10 !w-10 !cursor-pointer" />}
                 <motion.button
                     whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.99 }}
@@ -31,7 +31,7 @@ const Input = () => {
                     Start a post
                 </motion.button>
             </div>
-            <div className="flex items-center flex-wrap gap-4 justify-center md:gap-x10">
+            <div className="flex items-center flex-wrap gap-4 justify-center md:gap-x-10">
                 <button className="inputButton group">
                     <PhotoSizeSelectActualIcon className="text-blue-400" />
                     <h4 className="opacity-80 group-hover:opacity-100">Photo</h4>

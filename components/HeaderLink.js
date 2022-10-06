@@ -1,9 +1,13 @@
 import React from 'react'
+import { signOut, useSession } from "next-auth/react";
 
 const HeaderLink = ({ Icon, text, avatar, feed, hidden, active }) => {
+
+    const { data: session } = useSession();
+
     return (
-        <div className={`${hidden && "hidden md:inline-flex"} cursor-pointer flex flex-col justify-center items-center ${feed ? 'text-black/60 hover:text-black dark:text-white/75 dark:hover:text-white lg:white:-mb-1.5 space-y-1' : 'text-gray-500 hover:text-gray-700'} ${active && "!text-black dark:!text-white"}`}>
-            {avatar ? (<Icon className='!h-7 !w-8 lg:!-mb-1' />) : <Icon />}
+        <div className={`${hidden && "hidden md:inline-flex"} cursor-pointer flex flex-col justify-center items-center ${feed ? 'text-black/60 hover:text-black dark:text-white/75 dark:hover:text-white lg:white:-mb-1.5 space-y-1' : 'text-gray-500 hover:text-gray-700'} ${active && "!text-black dark:!text-white"}`} onClick={() => avatar && signOut()}>
+            {avatar ? (session?.user?.image && <Icon className='!h-7 !w-8 lg:!-mb-1' src={session?.user?.image} />) : <Icon />}
             <h4 className={`text-sm ${feed && 'hidden lg:flex justify-center w-full mx-auto'}`}>{text}</h4>
 
             {active && (

@@ -11,8 +11,9 @@ import Feed from '../components/Feed';
 import { useRecoilState } from "recoil";
 import { modalState, modalTypeState } from "../atoms/modalAtoms";
 import { connectToDatabase } from '../util/mongodb';
+import Widgets from '../components/Widgets';
 
-export default function Home({ posts }) {
+export default function Home({ posts, articles }) {
   const router = useRouter();
   const [modalOpen, setModalOpen] = useRecoilState(modalState);
   const [modalType, setModalType] = useRecoilState(modalTypeState);
@@ -27,9 +28,8 @@ export default function Home({ posts }) {
     <div className='bg-[#F3F2EF] dark:bg-black dark:text-white h-screen overflow-y-scroll space-y-3 md:space-y-6'>
       <Head>
         <title>Feed | LinkedIn</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="https://rb.gy/dpmd9s" />
       </Head>
-      {/* <button onClick={signOut}>SignOut</button> */}
       <Header />
 
       <main className='flex justify-center gap-x-5 px-4 sm:px-12'>
@@ -42,7 +42,7 @@ export default function Home({ posts }) {
           <Feed posts={posts} />
 
         </div>
-        {/* Widgets */}
+        <Widgets articles={articles} />
         <AnimatePresence>
           {modalOpen && (
             <Modal handleClose={() => setModalOpen(false)} type={modalType} />
@@ -72,10 +72,14 @@ export async function getServerSideProps(context) {
   const posts = await db.collection("post").find().sort({ timestamp: -1 }).toArray();
 
   //Get Google News API
+  const results = await fetch(
+    `https://newsapi.org/v2/top-headlines?country=in&apiKey=${process.env.NEWS_API_KEY}`
+  ).then((res) => res.json());
 
   return {
     props: {
       session,
+      articles: results.articles,
       posts: posts.map((post) => ({
         _id: post._id.toString(),
         input: post.input,
